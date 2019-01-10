@@ -7,19 +7,6 @@ const handleRegister = (req,res,db,bcrypt)=>{
 	}
 	const hash = bcrypt.hashSync(password);
 
-	//bcrypt.compareSync("bacon", hash); // true
-	//bcrypt.compareSync("veggies", hash); // false
-	// bcrypt.hash(password, null, null, function(err, hash) {
- //    // Store hash in your password DB.
- //    	console.log(hash);
-	// });
-	// database.users.push({			
-	// 	id:'125',
-	// 	name: name,
-	// 	email: email,
-	// 	entries:0,
-	// 	joined: new Date()
-	// })
 		db.transaction(trx => {
 			trx.insert({
 				hash: hash,
@@ -42,7 +29,6 @@ const handleRegister = (req,res,db,bcrypt)=>{
 			.catch(trx.rollback)
 		})
 		
-		//res.json(database.users[database.users.length-1])
 		.catch(err => res.status(400).json('unable to register'))
 }
 
